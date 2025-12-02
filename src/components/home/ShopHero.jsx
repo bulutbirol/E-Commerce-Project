@@ -73,7 +73,7 @@ const ShopHero = () => {
                  <img 
                     src={slide.img} 
                     alt={slide.title} 
-                    className="object-contain h-[500px] md:h-[600px] w-auto relative bottom-0" 
+                    className="object-cover h-[500px] md:h-[600px] w-auto relative bottom-0" 
                   />
               </div>
             </div>
