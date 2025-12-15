@@ -8,7 +8,7 @@ const Header = () => {
 
   return (
     <header className="font-sans relative z-50">
-      <div className="hidden md:block bg-bandage-dark text-white text-sm py-3 font-bold">
+      <div className="hidden md:block bg-[#23856D] text-white text-sm py-3 font-bold">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex gap-5">
             <div className="flex items-center gap-1"><Phone size={16}/> (225) 555-0118</div>
