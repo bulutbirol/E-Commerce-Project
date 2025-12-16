@@ -1,26 +1,52 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/layout/Header';
 import Hero from './components/home/Hero';
 import EditorsPick from './components/home/EditorsPick';
 import BestsellerProducts from './components/home/BestsellerProducts';
-import Banner from './components/home/NeuralUniverse';
 import ShopHero from './components/home/ShopHero';
 import NeuralUniverse from './components/home/NeuralUniverse';
 import FeaturedPosts from './components/home/FeaturedPosts';
 import Footer from './components/layout/Footer';
+import ShopPage from './pages/ShopPage';
+import ProductPage from './pages/ProductPage';
+import GreenHeader from './components/layout/GreenHeader';
+import ProductDetail from "./pages/ProductDetail";
+import ShopClients from './components/shop/ShopClients';
+import ContactPage from './pages/ContactPage';
+
+const HomePage = () => (
+  <>
+    <Header />
+    <Hero />
+    <EditorsPick />
+    <BestsellerProducts />
+    <ShopHero />
+    <NeuralUniverse />
+    <FeaturedPosts />
+    <Footer />
+  </>
+);
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      <Hero />
-      <EditorsPick />
-      <BestsellerProducts />
-      <ShopHero />
-      <NeuralUniverse />
-      <FeaturedPosts />
-      <Footer />
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/shop" element={<ShopPage />} />
+      <Route path="/contact" element={<ContactPage />} />
+      <Route
+        path="/product/:productId"
+        element={
+          <>
+            <GreenHeader />
+            <ProductDetail />
+            <BestsellerProducts />
+            <ShopClients />
+            <Footer />
+          </>
+        }
+      />
+    </Routes>
   );
 }
 
