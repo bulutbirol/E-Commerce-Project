@@ -4,7 +4,7 @@ import { Facebook, Instagram, Twitter } from 'lucide-react';
 const Footer = () => {
   return (
     <footer className="font-sans">
-      <div className="bg-[#ffffff]">
+      <div className="bg-[#FAFAFA]">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between md:items-center py-10 border-b border-[#E6E6E6] gap-4">
             <h3 className="text-2xl font-bold text-[#252B42]">Bandage</h3>

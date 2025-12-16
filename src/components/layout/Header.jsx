@@ -22,11 +22,11 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="bg-white py-4 shadow-sm sticky top-0">
+      <div className="bg-white py-8 md:py-4 shadow-sm sticky top-0 overflow-x-hidden">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center relative">
+          <div className="flex justify-between items-center">
             
-            <Link to="/" className="text-2xl md:text-4xl font-bold text-[#252B42] shrink-0">Bandage</Link>
+            <Link to="/" className="text-4xl font-bold text-[#252B42] shrink-0">Bandage</Link>
 
             <nav className="hidden md:flex gap-6 text-gray-500 font-bold text-sm items-center">
               <Link to="/" className="hover:text-bandage-dark">Home</Link>
@@ -66,46 +66,22 @@ const Header = () => {
               </div>
             </div>
 
-            <div className="md:hidden flex items-center">
-               <button onClick={toggleMenu} className="focus:outline-none text-[#252B42]">
-                 {isMenuOpen ? <X size={30} /> : <Menu size={30} />}
+            <div className="md:hidden flex items-center gap-8 text-[#252B42]">
+               <User size={36} strokeWidth={1.5} className="cursor-pointer shrink-0" />
+               <Search size={36} strokeWidth={1.5} className="cursor-pointer shrink-0" />
+               <ShoppingCart size={36} strokeWidth={1.5} className="cursor-pointer shrink-0" />
+               <button onClick={toggleMenu} className="focus:outline-none shrink-0">
+                 {isMenuOpen ? <X size={36} strokeWidth={1.5} /> : <Menu size={36} strokeWidth={1.5} />}
                </button>
             </div>
           </div>
           
-          {isMenuOpen && (
-            <div className="md:hidden flex flex-col items-center gap-8 py-16 animate-fade-in text-center font-sans">
-              
-              <Link to="/" onClick={toggleMenu} className="text-[#737373] text-[30px] font-normal leading-[45px]">Home</Link>
-              <Link to="/shop" onClick={toggleMenu} className="text-[#737373] text-[30px] font-normal leading-[45px]">Shop</Link>
-              <Link to="/about" onClick={toggleMenu} className="text-[#737373] text-[30px] font-normal leading-[45px]">About</Link>
-              <Link to="/blog" onClick={toggleMenu} className="text-[#737373] text-[30px] font-normal leading-[45px]">Blog</Link>
-              <Link to="/contact" onClick={toggleMenu} className="text-[#737373] text-[30px] font-normal leading-[45px]">Contact</Link>
-              <Link to="/pages" onClick={toggleMenu} className="text-[#737373] text-[30px] font-normal leading-[45px]">Pages</Link>
-              <Link to="/login" onClick={toggleMenu} className="text-[#23A6F0] text-[30px] font-normal leading-[45px] flex items-center justify-center gap-2 mt-2">
-                 <User size={30} className="inline-block" /> Login / Register
-              </Link>
-
-              <div className="flex flex-col gap-6 items-center text-[#23A6F0] mt-4">
-                <button className="hover:text-blue-600 transition-colors">
-                  <Search size={30} strokeWidth={1.5} />
-                </button>
-                
-                <Link to="/cart" onClick={toggleMenu} className="flex flex-col items-center hover:text-blue-600 transition-colors">
-                  <div className="flex items-center gap-2">
-                    <ShoppingCart size={30} strokeWidth={1.5} /> 
-                    <span className="text-xs hidden">1</span>
-                  </div>
-                </Link>
-                
-                <Link to="/wishlist" onClick={toggleMenu} className="flex flex-col items-center hover:text-blue-600 transition-colors">
-                  <div className="flex items-center gap-2">
-                    <Heart size={30} strokeWidth={1.5} /> 
-                    <span className="text-xs hidden">1</span>
-                  </div>
-                </Link>
-              </div>
-
+           {isMenuOpen && (
+            <div className="md:hidden flex flex-col items-center gap-8 py-20 animate-fade-in">
+              <Link to="/" onClick={toggleMenu} className="text-[#737373] text-[30px] font-normal">Home</Link>
+              <Link to="/product" onClick={toggleMenu} className="text-[#252B42] text-[30px] font-normal">Product</Link>
+              <Link to="/pricing" onClick={toggleMenu} className="text-[#252B42] text-[30px] font-normal">Pricing</Link>
+              <Link to="/contact" onClick={toggleMenu} className="text-[#252B42] text-[30px] font-normal">Contact</Link>
             </div>
           )}
         </div>

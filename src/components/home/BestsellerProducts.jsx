@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // 1. Link import edildi
 
 import product1 from '../../assets/img1.jpg';
 import product2 from '../../assets/img2.jpg';
@@ -34,11 +33,7 @@ const BestsellerProducts = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 px-12 md:px-0">
           {products.map((product) => (
-            <Link 
-              to={`/product/${product.id}`} 
-              key={product.id} 
-              className="flex flex-col items-center group w-full shadow-sm hover:shadow-md transition-shadow"
-            >
+            <div key={product.id} className="flex flex-col items-center group w-full shadow-sm hover:shadow-md transition-shadow">
               
               <div className="w-full h-[400px] mb-6 overflow-hidden">
                 <img 
@@ -63,7 +58,7 @@ const BestsellerProducts = () => {
                   <div className="w-4 h-4 rounded-full bg-[#252B42] cursor-pointer"></div>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
 
