@@ -14,6 +14,7 @@ import GreenHeader from './components/layout/GreenHeader';
 import ProductDetail from "./pages/ProductDetail";
 import ShopClients from './components/shop/ShopClients';
 import ContactPage from './pages/ContactPage';
+import AboutPage from './pages/AboutPage.jsx';
 
 const HomePage = () => (
   <>
@@ -46,6 +47,7 @@ function App() {
           </>
         }
       />
+      <Route path="/about" element={<AboutPage />} />
     </Routes>
   );
 }

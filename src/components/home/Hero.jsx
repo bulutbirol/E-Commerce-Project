@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import heroImage from '../../assets/image_13.jpg';
 import heroMan from '../../assets/heroimg2.png';
+
 const slides = [
   {
     id: 1,
@@ -42,7 +43,8 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-auto md:h-[calc(100vh-136px)] min-h-[750px] md:min-h-[600px] overflow-hidden font-sans text-white">
+    // DÜZELTME 1: min-h-[750px] yerine min-h-[600px] yapıldı. Mobilde çok uzun boşluk oluşmasını engeller.
+    <div className="relative w-full h-auto md:h-[calc(100vh-136px)] min-h-[600px] md:min-h-[600px] overflow-hidden font-sans text-white">
 
       <div
         className="flex transition-transform duration-700 ease-out h-full"
@@ -53,7 +55,8 @@ const Hero = () => {
 
             <div className="container mx-auto px-4 h-full flex flex-col md:flex-row items-center justify-center md:justify-start">
 
-              <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left pt-24 md:pt-0 gap-8 z-10 px-4">
+              {/* Text Content */}
+              <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left pt-20 md:pt-0 gap-8 z-10 px-4">
                 <h5 className="font-bold text-base tracking-wide uppercase">
                   {slide.subtitle}
                 </h5>
@@ -74,16 +77,21 @@ const Hero = () => {
                 </div>
               </div>
 
-              <div className="w-full md:w-1/2 h-full flex items-end justify-center relative overflow-hidden md:overflow-visible mt-10 md:mt-0">
+              {/* Image Content */}
+              <div className="w-full md:w-1/2 h-full flex items-end justify-center relative overflow-hidden md:overflow-visible mt-8 md:mt-0">
+                
+                {/* Daire Arka Plan */}
                 {slide.layout === 'collection' && (
-                  <div className="absolute w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-white opacity-10 rounded-full top-10 right-0 md:top-20 md:right-10"></div>
+                  <div className="absolute w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-white opacity-10 rounded-full top-10 right-1/2 translate-x-1/2 md:translate-x-0 md:right-10 md:top-20"></div>
                 )}
 
                 <img
                   src={slide.img}
                   alt={slide.title}
-                  className={`w-full min-w-[414px] h-full object-cover scale-[1.3] md:scale-100 md:w-full md:min-w-0 md:h-full md:object-cover${slide.layout === 'vita' ? 'md:translate-y-10' : ''}`}
-                  style={{ objectPosition: 'top center' }}
+                  // DÜZELTME 2: 'max-h-[400px]' eklendi. 
+                  // Bu kod mobilde resmin yüksekliğini 400px ile sınırlar, böylece devasa gözükmez.
+                  // 'md:max-h-none' ile masaüstünde bu sınır kaldırılır.
+                  className={`w-full h-full max-h-[400px] md:max-h-none object-contain object-bottom md:object-cover ${slide.layout === 'vita' ? 'md:translate-y-10' : ''}`}
                 />
               </div>
             </div>
@@ -92,9 +100,11 @@ const Hero = () => {
         ))}
       </div>
 
+      {/* Slider Controls */}
       <button onClick={prevSlide} className="absolute top-[60%] md:top-1/2 left-4 text-white hover:bg-white/20 p-2 rounded-full z-20"><ChevronLeft size={48} /></button>
       <button onClick={nextSlide} className="absolute top-[60%] md:top-1/2 right-4 text-white hover:bg-white/20 p-2 rounded-full z-20"><ChevronRight size={48} /></button>
 
+      {/* Pagination Dots */}
       <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-2 z-20">
         {slides.map((_, index) => (
           <div key={index} onClick={() => setCurrentSlide(index)}
