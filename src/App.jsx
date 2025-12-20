@@ -15,6 +15,9 @@ import ProductDetail from "./pages/ProductDetail";
 import ShopClients from './components/shop/ShopClients';
 import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage.jsx';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
+
 
 const HomePage = () => (
   <>
@@ -35,6 +38,9 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/shop" element={<ShopPage />} />
       <Route path="/contact" element={<ContactPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
+
       <Route
         path="/product/:productId"
         element={

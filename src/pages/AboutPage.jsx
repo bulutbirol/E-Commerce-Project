@@ -89,7 +89,7 @@ const AboutPage = () => {
       </section>
 
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 px-8 md:px-32">
+        <div className="container mx-auto px-8 md:px-32">
           <div className="relative w-full h-[300px] md:h-[540px] rounded-[20px] overflow-hidden shadow-lg group cursor-pointer">
             <img 
               src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" 
