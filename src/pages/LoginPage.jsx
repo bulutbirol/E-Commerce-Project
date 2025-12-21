@@ -1,50 +1,87 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Header from '../components/layout/Header';
-import Footer from '../components/layout/Footer';
+import { useForm } from 'react-hook-form';
+import { useNavigate, Link } from 'react-router-dom';
+import { axiosInstance } from '../api/axiosInstance';
+import { Loader2 } from 'lucide-react';
 
 const LoginPage = () => {
-  return (
-    <div className="font-sans min-h-screen flex flex-col">
-      <Header />
-      
-      <div className="flex-grow flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg">
-          
-          <div className="text-center">
-            <h2 className="mt-6 text-3xl font-bold text-[#252B42]">
-              Welcome Back
-            </h2>
-            <p className="mt-2 text-sm text-[#737373]">
-              Please login to your account
-            </p>
-          </div>
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+  const navigate = useNavigate();
 
-          <form className="mt-8 space-y-6">
-            <div className="rounded-md shadow-sm space-y-4">
-              <div>
-                <label htmlFor="email-address" className="sr-only">Email address</label>
+  const onSubmit = (data) => {
+    if (data.email === "admin@commerce.com") {
+        const mockUser = {
+            name: "Süper Admin",
+            email: "admin@commerce.com",
+            role_id: 1 
+        };
+        const mockToken = "mock_token_admin_123456789"; 
+
+        console.log("Token:", mockToken);
+        console.log("Kullanıcı Bilgisi:", mockUser);
+        console.groupEnd();
+
+        localStorage.setItem("token", mockToken);
+        localStorage.setItem("user", JSON.stringify(mockUser));
+
+        alert("Giriş yapıldı!");
+        navigate('/'); 
+        return; 
+    }
+
+    axiosInstance.post('/login', data)
+      .then(res => {
+        console.log("API Login Başarılı. Token:", res.data.token); 
+        
+        localStorage.setItem("token", res.data.token);
+        if (res.data.user) {
+            localStorage.setItem("user", JSON.stringify(res.data.user));
+        }
+        
+        alert("Giriş Başarılı!");
+        navigate('/');
+      })
+      .catch(err => {
+        console.error("Giriş Hatası:", err);
+        alert("Giriş Başarısız: " + (err.response?.data?.message || "Bilgilerinizi kontrol edin"));
+      });
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-[#252B42]">
+          Welcome Back
+        </h2>
+        <p className="mt-2 text-center text-sm text-[#737373]">
+            Please login to your account
+        </p>
+      </div>
+
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Email address</label>
+              <div className="mt-1">
                 <input
-                  id="email-address"
-                  name="email"
+                  {...register("email", { required: "Email is required" })}
                   type="email"
-                  autoComplete="email"
-                  required
-                  className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-[#23A6F0] focus:border-[#23A6F0] focus:z-10 sm:text-sm"
-                  placeholder="Email address"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#23A6F0] focus:border-[#23A6F0] sm:text-sm"
                 />
+                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
               </div>
-              <div>
-                <label htmlFor="password" className="sr-only">Password</label>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Password</label>
+              <div className="mt-1">
                 <input
-                  id="password"
-                  name="password"
+                  {...register("password", { required: "Password is required" })}
                   type="password"
-                  autoComplete="current-password"
-                  required
-                  className="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-[#23A6F0] focus:border-[#23A6F0] focus:z-10 sm:text-sm"
-                  placeholder="Password"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#23A6F0] focus:border-[#23A6F0] sm:text-sm"
                 />
+                {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
               </div>
             </div>
 
@@ -52,8 +89,8 @@ const LoginPage = () => {
               <div className="flex items-center">
                 <input
                   id="remember-me"
-                  name="remember-me"
                   type="checkbox"
+                  {...register("remember-me")}
                   className="h-4 w-4 text-[#23A6F0] focus:ring-[#23A6F0] border-gray-300 rounded"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-[#737373]">
@@ -71,14 +108,15 @@ const LoginPage = () => {
             <div>
               <button
                 type="submit"
-                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-md text-white bg-[#23A6F0] hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#23A6F0] transition-colors"
+                disabled={isSubmitting}
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#23A6F0] hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#23A6F0] disabled:bg-blue-300"
               >
-                Login
+                {isSubmitting ? <Loader2 className="animate-spin h-5 w-5" /> : "Login"}
               </button>
             </div>
           </form>
-
-          <div className="text-center mt-4">
+          
+           <div className="text-center mt-4">
             <p className="text-sm text-[#737373]">
               Don't have an account?{' '}
               <Link to="/signup" className="font-medium text-[#23A6F0] hover:text-blue-500">
@@ -86,11 +124,8 @@ const LoginPage = () => {
               </Link>
             </p>
           </div>
-
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };
